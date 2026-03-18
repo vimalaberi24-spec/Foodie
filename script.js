@@ -33,11 +33,11 @@ document.querySelectorAll('.add-to-cart').forEach(btn => {
     const product = getProductById(btn.dataset.id);
     cart.push(product);
     saveCart();
-    alert(product.name + " added to cart!");
+    showToast(product.name + " added to cart!");
   });
 });
 
-// Render cart page
+// Cart page rendering
 if (document.getElementById('cartItems')) {
   loadCart();
   const cartItemsDiv = document.getElementById('cartItems');
@@ -55,7 +55,23 @@ if (document.getElementById('cartItems')) {
 if (document.getElementById('checkoutForm')) {
   document.getElementById('checkoutForm').addEventListener('submit', e => {
     e.preventDefault();
-    document.getElementById('orderResponse').textContent = "Order placed successfully!";
+    document.getElementById('orderResponse').textContent = "🎉 Order placed successfully! Thank you for shopping with us.";
     localStorage.removeItem('cart');
   });
+}
+
+// Toast notification
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.style.position = 'fixed';
+  toast.style.bottom = '20px';
+  toast.style.right = '20px';
+  toast.style.background = '#ff9800';
+  toast.style.color = '#fff';
+  toast.style.padding = '10px 20px';
+  toast.style.borderRadius = '8px';
+  toast.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
 }
